@@ -41,7 +41,6 @@ func main() {
 		}
 
 		// going to evaluate the reports as we read them for memory efficency
-
 		if isSafe(report) {
 			safe_report_count += 1
 		}
@@ -78,18 +77,17 @@ func isSafe(report []int) bool {
 		if report[i] == report[i+1] || abs(report[i]-report[i+1]) > 3 {
 			return false
 		} else if i == 0 {
-			is_increasing = report[i] > report[i+1]
+			is_increasing = report[i] < report[i+1]
 		} else if report[i] > report[i+1] && is_increasing {
 			return false
 		} else if report[i] < report[i+1] && !is_increasing {
 			return false
 		}
 	}
-
 	return true
 }
 
-// absoloute value for integers
+// Absoloute value for integers
 func abs(x int) int {
 	if x < 0 {
 		return -x
