@@ -51,4 +51,35 @@ func main() {
 		total_difference += diff
 	}
 	fmt.Println("Total difference: ", total_difference)
+
+	fmt.Println("Similarity score: ", similarityScore(locationIDs_left, locationIDs_right))
+}
+
+// Day 1, Challenge 2
+func similarityScore(slice1 []int, slice2 []int) int {
+	similarity_score := 0
+
+	slice2_occurances := countOccurances(slice2)
+
+	for i := 0; i < len(slice1); i++ {
+		// look for occurances of slice1[i] within slice2
+		// we are comparing the "left" list to the "right" list of locations from the problem
+
+		// find how many occurances of slice1[i] exist within slice2 (the "right" list)
+		occurances_in_slice2 := slice2_occurances[slice1[i]]
+
+		// Go returns a zero-value of the respective data type if the key doesn't exist
+		// If there are no occurances in one of the slices, it assigns 0. Which works for us.
+		similarity_score += slice1[i] * occurances_in_slice2
+	}
+
+	return similarity_score
+}
+
+func countOccurances(slice []int) map[int]int {
+	occurances := make(map[int]int)
+	for i := 0; i < len(slice); i++ {
+		occurances[slice[i]] += 1
+	}
+	return occurances
 }
