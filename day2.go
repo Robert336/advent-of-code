@@ -17,7 +17,7 @@ func main() {
 
 	fmt.Println("Advent of Code Day 2: Part 1")
 
-	file, err := os.Open("day2-reports.txt")
+	file, err := os.Open("day2-reports.input")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -93,4 +93,11 @@ func abs(x int) int {
 		return -x
 	}
 	return x
+}
+
+// part 2 - The Problem Dampener
+// need to check if an unsafe report can be made safe by dropping exactly one level.
+
+func dampen_problem(report []int) []int {
+
 }
