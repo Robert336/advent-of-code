@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -17,7 +18,7 @@ func main() {
 
 	fmt.Println("Advent of Code Day 2: Part 1")
 
-	file, err := os.Open("day2-reports.input")
+	file, err := os.Open("day2.test")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,9 +42,13 @@ func main() {
 		}
 
 		// going to evaluate the reports as we read them for memory efficency
+		// first check if the report is safe, if it's not, try to dampen the report and check again.
 		if isSafe(report) {
 			safe_report_count += 1
+		} else if _, is_resolvedd := dampen_problem(report); is_resolvedd {
+			safe_report_count += 1
 		}
+
 	}
 
 	fmt.Println("Safe Reports: ", safe_report_count)
@@ -98,6 +103,17 @@ func abs(x int) int {
 // part 2 - The Problem Dampener
 // need to check if an unsafe report can be made safe by dropping exactly one level.
 
-func dampen_problem(report []int) []int {
+func dampen_problem(report []int) ([]int, bool) {
 
+	// brute forcing this, going to be a nice lil O(n^2)
+	dampened_report := make([]int, 0)
+	problem_resolved := false // track problem resolution
+	for i := 0; i < len(report); i++ {
+		dampened_report := slices.Concat(report[:i], report[i+1:]) // [...remove i...]
+		if isSafe(dampened_report) {
+			problem_resolved = true
+			break
+		}
+	}
+	return dampened_report, problem_resolved
 }
