@@ -16,7 +16,7 @@ func main() {
 	// One report per line, numbers separated by spaces
 	// each number in a report is a "level"
 
-	fmt.Println("Advent of Code Day 2: Part 1")
+	fmt.Println("Advent of Code Day 2")
 
 	file, err := os.Open("day2.test")
 	if err != nil {
